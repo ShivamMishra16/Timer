@@ -26,11 +26,12 @@ var ss = document.getElementsByClassName('container');
 
         currentTimer += dt;
 
-        var time = new Date(currentTimer);
+        var gmtTime = new Date(currentTimer);
+        var utcTime = convertDateToUTC(gmtTime);
 
-        mins.innerHTML = pad(time.getMinutes());
-        secs.innerHTML = pad(time.getSeconds());
-        cents.innerHTML = pad(Math.floor(time.getMilliseconds() / 10));
+        mins.innerHTML = pad(utcTime.getMinutes());
+        secs.innerHTML = pad(utcTime.getSeconds());
+        cents.innerHTML = pad(Math.floor(utcTime.getMilliseconds() / 10));
 
         lastUpdateTime = now;
     }
@@ -55,4 +56,12 @@ var ss = document.getElementsByClassName('container');
 
         mins.innerHTML = secs.innerHTML = cents.innerHTML = pad(0);
     }
+    function convertDateToUTC(date) {
+     return new Date(date.getUTCFullYear(),
+                     date.getUTCMonth(),
+                     date.getUTCDate(),
+                     date.getUTCHours(),
+                     date.getUTCMinutes(), 
+                     date.getUTCSeconds(),
+                     date.getUTCMilliseconds());}
 });
